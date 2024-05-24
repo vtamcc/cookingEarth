@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "khoaitay_2",
+    "texture": "367e6956-6442-4715-b2f8-f458c0790d83",
+    "atlas": "",
+    "rect": [
+      3,
+      27,
+      218,
+      218
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      224,
+      272
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "comga_3",
+    "texture": "c2ff3abc-03f0-4de8-a49a-d9dc4bd2135d",
+    "atlas": "",
+    "rect": [
+      3,
+      3,
+      315,
+      270
+    ],
+    "offset": [
+      0.5,
+      2
+    ],
+    "originalSize": [
+      320,
+      280
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "hotdog_3",
+    "texture": "b6a9bd96-e861-4bb7-9bce-50deb3eacfc9",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      356,
+      190
+    ],
+    "offset": [
+      -2,
+      1
+    ],
+    "originalSize": [
+      360,
+      192
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

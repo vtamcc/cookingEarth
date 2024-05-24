@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "bittet_2",
+    "texture": "8d194005-82b7-4d65-8ed8-d3859a704dfb",
+    "atlas": "",
+    "rect": [
+      4,
+      2,
+      324,
+      260
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      332,
+      264
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

@@ -43,6 +43,9 @@ var Main = /** @class */ (function (_super) {
         // LIFE-CYCLE CALLBACKS:
         _this.foodIndices = [];
         _this.arrData = [];
+        _this.isMove = false;
+        _this.indexData = -1;
+        _this.countCorrect = 0;
         return _this;
         // update (dt) {}
     }
@@ -51,6 +54,7 @@ var Main = /** @class */ (function (_super) {
         Main_1.instance = this;
         this.randomFood();
         this.randomIndex();
+        this.shuffle();
         this.renderFood();
         this.charFood();
     };
@@ -59,11 +63,24 @@ var Main = /** @class */ (function (_super) {
     Main.prototype.randomIndex = function () {
         for (var i = 0; i < this.listspfFood.length; i++) {
             this.foodIndices.push(i);
+            this.foodIndices.push(i);
+            this.foodIndices.push(i);
         }
-        while (this.foodIndices.length < 25) {
-            var randomIndex = Math.floor(Math.random() * this.listspfFood.length);
-            this.foodIndices.push(randomIndex);
+        // while(this.foodIndices.length < 24) {
+        var randomIndex = Math.floor(Math.random() * this.listspfFood.length);
+        this.foodIndices.push(randomIndex);
+        console.log(this.foodIndices);
+        //     console.log(randomIndex);
+        //     this.foodIndices.push(randomIndex);
+        // }
+    };
+    Main.prototype.shuffle = function () {
+        var _a;
+        for (var i = this.foodIndices.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            _a = [this.foodIndices[j], this.foodIndices[i]], this.foodIndices[i] = _a[0], this.foodIndices[j] = _a[1];
         }
+        console.log(this.foodIndices);
     };
     Main.prototype.renderFood = function () {
         console.log(this.foodIndices);
@@ -87,12 +104,23 @@ var Main = /** @class */ (function (_super) {
         console.log(this.arrData);
     };
     Main.prototype.charFood = function () {
+        this.indexData++;
+        this.isMove = true;
         var indexFood = this.arrData;
         var dt = this.listCharMove[0].getComponent(CharMove_1.default);
         dt.food.spriteFrame = this.listspfFood[indexFood[0]];
     };
     Main.prototype.checkCorrect = function (idFood) {
-        console.log("Id = ", idFood);
+        var test = this.arrData.indexOf(idFood);
+        console.log(test);
+        if (test > -1) {
+            this.countCorrect++;
+            this.node.destroy();
+        }
+        if (this.countCorrect == 3) {
+            console.log("you win");
+        }
+        console.log(this.countCorrect);
     };
     var Main_1;
     Main.instance = null;

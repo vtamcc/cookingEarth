@@ -29,22 +29,48 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var Main_1 = require("./Main");
 var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
 var CharMove = /** @class */ (function (_super) {
     __extends(CharMove, _super);
     function CharMove() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.food = null;
+        _this.idChar = 0;
+        _this.charAnimation = null;
+        _this.nOrder = null;
         return _this;
-        // update (dt) {}
     }
     // LIFE-CYCLE CALLBACKS:
     // onLoad () {}
     CharMove.prototype.start = function () {
     };
+    CharMove.prototype.update = function (dt) {
+        if (!Main_1.default.instance.isMove)
+            return;
+        if (this.idChar == Main_1.default.instance.indexData) {
+            if (this.node.x >= 0) {
+                if (Main_1.default.instance.isMove) {
+                    Main_1.default.instance.isMove = false;
+                    this.charAnimation.setAnimation(0, "idle", true);
+                    this.nOrder.active = true;
+                }
+            }
+        }
+        this.node.x += 5;
+    };
     __decorate([
         property(cc.Sprite)
     ], CharMove.prototype, "food", void 0);
+    __decorate([
+        property()
+    ], CharMove.prototype, "idChar", void 0);
+    __decorate([
+        property(sp.Skeleton)
+    ], CharMove.prototype, "charAnimation", void 0);
+    __decorate([
+        property(cc.Node)
+    ], CharMove.prototype, "nOrder", void 0);
     CharMove = __decorate([
         ccclass
     ], CharMove);

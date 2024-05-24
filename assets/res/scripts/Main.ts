@@ -23,14 +23,19 @@ export default class Main extends cc.Component {
     listCharMove: cc.Node []= [];
     @property(cc.Node)
     nodeListFood: cc.Node = null;
+
+    
     // LIFE-CYCLE CALLBACKS:
     foodIndices = [];
     arrData = [];
-  
+    isMove = false;
+    indexData = -1;
+    countCorrect = 0;
     onLoad () {
         Main.instance = this;
         this.randomFood();
         this.randomIndex();
+        this.shuffle();
         this.renderFood();
         this.charFood();
        
@@ -42,14 +47,29 @@ export default class Main extends cc.Component {
     randomIndex() {
         for(let i = 0; i < this.listspfFood.length; i++) {
             this.foodIndices.push(i);
+            this.foodIndices.push(i);
+            this.foodIndices.push(i);
         }
+        // while(this.foodIndices.length < 24) {
+        let randomIndex = Math.floor(Math.random() * this.listspfFood.length);
+        this.foodIndices.push(randomIndex);
 
-        while(this.foodIndices.length < 25) {
-            let randomIndex = Math.floor(Math.random() * this.listspfFood.length);
-            this.foodIndices.push(randomIndex);
-        }
+        console.log(this.foodIndices);
+
+        //     console.log(randomIndex);
+        //     this.foodIndices.push(randomIndex);
+        // }
     }
 
+    shuffle() {
+        for (let i = this.foodIndices.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.foodIndices[i], this.foodIndices[j]] = [this.foodIndices[j], this.foodIndices[i]];
+        }
+
+        console.log(this.foodIndices);
+    }
+ 
     renderFood() {
         console.log(this.foodIndices);
         const cols = 5;
@@ -76,13 +96,27 @@ export default class Main extends cc.Component {
     }
     
     charFood() {
+        this.indexData++;
+        this.isMove = true;
         let indexFood = this.arrData;
         let dt = this.listCharMove[0].getComponent(CharMove);
         dt.food.spriteFrame = this.listspfFood[indexFood[0]];
     }
     
     checkCorrect(idFood) {
-        console.log("Id = ", idFood);
+       
+        let test =  this.arrData.indexOf(idFood)
+        console.log(test);
+        if(test > -1 ) {
+            this.countCorrect++;
+            
+        }
+
+        if(this.countCorrect == 3) {
+            console.log("you win");
+        }
+        console.log(this.countCorrect);
+        
     }
     // update (dt) {}
 }

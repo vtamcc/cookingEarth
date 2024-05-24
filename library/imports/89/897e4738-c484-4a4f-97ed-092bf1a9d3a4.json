@@ -520,7 +520,7 @@
     ],
     "paused": false,
     "defaultSkin": "default",
-    "defaultAnimation": "",
+    "defaultAnimation": "move",
     "_preCacheMode": 0,
     "_cacheMode": 0,
     "loop": true,
@@ -531,7 +531,7 @@
     "_frameCache": null,
     "_curFrame": null,
     "_skeletonCache": null,
-    "_animationName": "",
+    "_animationName": "move",
     "_animationQueue": [],
     "_headAniInfo": null,
     "_playTimes": 0,
@@ -559,7 +559,7 @@
         "__id__": 11
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 13
@@ -749,6 +749,13 @@
     "_enabled": true,
     "food": {
       "__id__": 12
+    },
+    "idChar": 0,
+    "charAnimation": {
+      "__id__": 9
+    },
+    "nOrder": {
+      "__id__": 10
     },
     "_id": "5cyRD+IuBJGqRk0tJHmbLH"
   },
@@ -1128,6 +1135,13 @@
     "food": {
       "__id__": 20
     },
+    "idChar": 1,
+    "charAnimation": {
+      "__id__": 17
+    },
+    "nOrder": {
+      "__id__": 18
+    },
     "_id": "6fcp/M0mtIu4Wij7usEWKg"
   },
   {
@@ -1505,6 +1519,13 @@
     "_enabled": true,
     "food": {
       "__id__": 28
+    },
+    "idChar": 2,
+    "charAnimation": {
+      "__id__": 25
+    },
+    "nOrder": {
+      "__id__": 26
     },
     "_id": "0fBaO8TexIAJ8FE6h/Uzct"
   },

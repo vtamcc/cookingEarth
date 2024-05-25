@@ -48,6 +48,9 @@ var CharMove = /** @class */ (function (_super) {
     CharMove.prototype.update = function (dt) {
         if (!Main_1.default.instance.isMove)
             return;
+        if (this.node.x > 720) {
+            this.resetPos();
+        }
         if (this.idChar == Main_1.default.instance.indexData) {
             if (this.node.x >= 0) {
                 if (Main_1.default.instance.isMove) {
@@ -58,6 +61,9 @@ var CharMove = /** @class */ (function (_super) {
             }
         }
         this.node.x += 5;
+    };
+    CharMove.prototype.resetPos = function () {
+        this.node.x = -2160;
     };
     __decorate([
         property(cc.Sprite)

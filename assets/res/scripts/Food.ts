@@ -17,8 +17,8 @@ export default class Food extends cc.Component {
 
     @property(cc.Node)
     nCheck: cc.Node = null;
-
     id: number = 0;
+    nodeList = [];
     start() {
 
     }
@@ -30,10 +30,28 @@ export default class Food extends cc.Component {
 
     onClickFood() {
         if (Main.instance.checkCorrect(this.id)) {
-            this.spfFood.node.active = false;
+            this.nCheck.active = true;
+            Main.instance.listChoose.push(this);
+            console.log("zxcx", this.nodeList);
+            if(Main.instance.countCorrect == 3) {
+               
+            }
+            //console.log(this.node.position.x, this.node.position.y);
+            //console.log("Node list ",this.nodeList)
+            // if(Main.instance.countCorrect == 3) {
+            //     this.spfFood.node.active = false;
+            // }
+
+            // if(Main.instance.arrData.length == 3) {
+            //     // cc.tween(this.spfFood.node)
+            //     // .to(2,{position: cc.v3(100,100,0)})
+            //     // .start();
+            //     console.log("arr pos ", Main.instance.arrData)
+            // }
+            
+           
         }
-        
-        Main.instance.updateGame()
+        Main.instance.updateGame();
         // Main.instance.checkCorrect(this.id);
         // if (Main.instance.countCorrect > 0 && Main.instance.index == this.id) {
         //     this.node.destroy();
@@ -44,5 +62,7 @@ export default class Food extends cc.Component {
         // }
 
     }
+
+    
     // update (dt) {}
 }

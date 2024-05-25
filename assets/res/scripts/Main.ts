@@ -24,7 +24,6 @@ export default class Main extends cc.Component {
     @property(cc.Node)
     nodeListFood: cc.Node = null;
 
-    
     // LIFE-CYCLE CALLBACKS:
     foodIndices = [];
     arrData = [];
@@ -33,12 +32,18 @@ export default class Main extends cc.Component {
     countCorrect = 0;
     numberPlayer = 0;
     index;
+
+    listChoose: Array<Food> = [];
     onLoad () {
         Main.instance = this;
+        
+      
         this.randomIndex();
         this.shuffle();
         this.renderFood();
+        this.randomFood();
         this.charFood();
+        console.log(this.arrIdFood);
     }
 
     arrIdFood = [0,1,2,3,4,5,6,7]
@@ -92,10 +97,10 @@ export default class Main extends cc.Component {
 
 
     randomFood() {
-        let index = Math.floor(Math.random() * this.listspfFood.length)
-        let element = this.listspfFood.splice(index, 1)[0];
-
-        console.log("id random ", element);
+        for (let i = this.arrIdFood.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.arrIdFood[i], this.arrIdFood[j]] = [this.arrIdFood[j], this.arrIdFood[i]];
+        }
     }
     
    
@@ -108,16 +113,19 @@ export default class Main extends cc.Component {
         //     this.countCorrect++;
         // }
 
-    
         
-        if(this.index == idFood) {
+        
+        if(this.arrIdFood[this.indexData] == idFood) {
             this.countCorrect++;
+            this.arrData.push(idFood);
+            
             console.log("count correct", this.countCorrect);
             return true;
         }else {
             console.log("thua ccmr")
             this.actionCharLost();
         }
+    
 
        
 
@@ -132,16 +140,27 @@ export default class Main extends cc.Component {
         
     }
     
+    destroyFood() {
+        console.log("node list", this.arrData);
+        this.arrData = []
+        this.listChoose.forEach(e => {
+            if(e){
+                e.node.removeFromParent();
+            }
+        })
+    this.listChoose = [];
+
+    }
 
     updateGame()
-    { 
+    {   
+        
         if(this.countCorrect == 3) {
             this.actionCharWin();
             this.scheduleOnce(()=> {
                 this.charFood();
             },1);
-           
-            console.log("index data",this.indexData);
+            this.destroyFood();
         }
     }
 
@@ -159,20 +178,35 @@ export default class Main extends cc.Component {
     }
 
     charFood() {
-        if(this.indexData > 2)
-            return;
-        else {
-            this.randomFood();
-            this.indexData++;
-            this.countCorrect = 0;
-            this.isMove = true;
-            let indexItemFood = this.index;
+        
+        // if(this.indexData > 2)
+        //     return;
+        // else {
+        //     this.randomFood();
+           
+        //     this.countCorrect = 0;
+        //     this.isMove = true;
+        //     let indexItemFood = this.arrIdFood[0];
+        //     console.log("id food ", indexItemFood);
+        //     if(this.indexData > 2)
+        //         this.indexData = 0;
+        //     let dt = this.listCharMove[this.indexData].getComponent(CharMove);
+        //     dt.food.spriteFrame = this.listspfFood[indexItemFood];
+
+        // }
+        this.indexData++;
+        // this.randomFood();
+        console.log("index data = ",this.indexData);
+
+        this.countCorrect = 0;
+        this.isMove = true;
+        let indexItemFood = this.arrIdFood[this.indexData];
+        console.log("id food ", indexItemFood);
             if(this.indexData > 2)
                 this.indexData = 0;
-            let dt = this.listCharMove[this.indexData].getComponent(CharMove);
-            dt.food.spriteFrame = this.listspfFood[indexItemFood];
+        let dt = this.listCharMove[this.indexData].getComponent(CharMove);
+        dt.food.spriteFrame = this.listspfFood[indexItemFood];
 
-        }
     }
     // update (dt) {}
 }

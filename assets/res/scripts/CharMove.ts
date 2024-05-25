@@ -34,6 +34,9 @@ export default class CharMove extends cc.Component {
     update (dt) {
         if(!Main.instance.isMove)
             return;
+        if (this.node.x > 720) {
+            this.resetPos()
+        }
         if(this.idChar == Main.instance.indexData){
             if(this.node.x >= 0) {
                 if(Main.instance.isMove) {
@@ -45,5 +48,8 @@ export default class CharMove extends cc.Component {
         }
 
         this.node.x += 5;
+    }
+    resetPos() {
+        this.node.x = -2160
     }
 }

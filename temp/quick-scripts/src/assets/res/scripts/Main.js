@@ -47,6 +47,8 @@ var Main = /** @class */ (function (_super) {
         _this.indexData = -1;
         _this.countCorrect = 0;
         _this.numberPlayer = 0;
+        _this.listChoose = [];
+        _this.arrIdFood = [0, 1, 2, 3, 4, 5, 6, 7];
         return _this;
         // update (dt) {}
     }
@@ -56,20 +58,21 @@ var Main = /** @class */ (function (_super) {
         this.randomIndex();
         this.shuffle();
         this.renderFood();
+        this.randomFood();
         this.charFood();
+        console.log(this.arrIdFood);
     };
     Main.prototype.start = function () {
     };
     Main.prototype.randomIndex = function () {
-        for (var i = 0; i < this.listspfFood.length; i++) {
+        for (var i = 0; i < this.arrIdFood.length; i++) {
             this.foodIndices.push(i);
             this.foodIndices.push(i);
             this.foodIndices.push(i);
         }
         // while(this.foodIndices.length < 24) {
         var randomIndex = Math.floor(Math.random() * this.listspfFood.length);
-        var element = this.listspfFood.splice(randomIndex, 1)[0];
-        this.foodIndices.push(element);
+        this.foodIndices.push(randomIndex);
         console.log('foodIndex ', this.foodIndices);
         //     console.log(randomIndex);
         //     this.foodIndices.push(randomIndex);
@@ -99,8 +102,11 @@ var Main = /** @class */ (function (_super) {
         }
     };
     Main.prototype.randomFood = function () {
-        this.index = Math.floor(Math.random() * this.listspfFood.length);
-        console.log("id random ", this.index);
+        var _a;
+        for (var i = this.arrIdFood.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            _a = [this.arrIdFood[j], this.arrIdFood[i]], this.arrIdFood[i] = _a[0], this.arrIdFood[j] = _a[1];
+        }
     };
     Main.prototype.checkCorrect = function (idFood) {
         console.log(idFood);
@@ -109,8 +115,9 @@ var Main = /** @class */ (function (_super) {
         // if(test > -1 ) {
         //     this.countCorrect++;
         // }
-        if (this.index == idFood) {
+        if (this.arrIdFood[this.indexData] == idFood) {
             this.countCorrect++;
+            this.arrData.push(idFood);
             console.log("count correct", this.countCorrect);
             return true;
         }
@@ -125,6 +132,16 @@ var Main = /** @class */ (function (_super) {
         // }
         // console.log("count correct ", this.countCorrect);
     };
+    Main.prototype.destroyFood = function () {
+        console.log("node list", this.arrData);
+        this.arrData = [];
+        this.listChoose.forEach(function (e) {
+            if (e) {
+                e.node.removeFromParent();
+            }
+        });
+        this.listChoose = [];
+    };
     Main.prototype.updateGame = function () {
         var _this = this;
         if (this.countCorrect == 3) {
@@ -132,7 +149,7 @@ var Main = /** @class */ (function (_super) {
             this.scheduleOnce(function () {
                 _this.charFood();
             }, 1);
-            console.log("index data", this.indexData);
+            this.destroyFood();
         }
     };
     Main.prototype.actionCharWin = function () {
@@ -147,19 +164,30 @@ var Main = /** @class */ (function (_super) {
         dt.charAnimation.setAnimation(0, "discomfort", true);
     };
     Main.prototype.charFood = function () {
+        // if(this.indexData > 2)
+        //     return;
+        // else {
+        //     this.randomFood();
+        //     this.countCorrect = 0;
+        //     this.isMove = true;
+        //     let indexItemFood = this.arrIdFood[0];
+        //     console.log("id food ", indexItemFood);
+        //     if(this.indexData > 2)
+        //         this.indexData = 0;
+        //     let dt = this.listCharMove[this.indexData].getComponent(CharMove);
+        //     dt.food.spriteFrame = this.listspfFood[indexItemFood];
+        // }
+        this.indexData++;
+        // this.randomFood();
+        console.log("index data = ", this.indexData);
+        this.countCorrect = 0;
+        this.isMove = true;
+        var indexItemFood = this.arrIdFood[this.indexData];
+        console.log("id food ", indexItemFood);
         if (this.indexData > 2)
-            return;
-        else {
-            this.randomFood();
-            this.indexData++;
-            this.countCorrect = 0;
-            this.isMove = true;
-            var indexItemFood = this.index;
-            if (this.indexData > 2)
-                this.indexData = 0;
-            var dt = this.listCharMove[this.indexData].getComponent(CharMove_1.default);
-            dt.food.spriteFrame = this.listspfFood[indexItemFood];
-        }
+            this.indexData = 0;
+        var dt = this.listCharMove[this.indexData].getComponent(CharMove_1.default);
+        dt.food.spriteFrame = this.listspfFood[indexItemFood];
     };
     var Main_1;
     Main.instance = null;

@@ -38,6 +38,7 @@ var Food = /** @class */ (function (_super) {
         _this.spfFood = null;
         _this.nCheck = null;
         _this.id = 0;
+        _this.nodeList = [];
         return _this;
         // update (dt) {}
     }
@@ -49,7 +50,22 @@ var Food = /** @class */ (function (_super) {
     };
     Food.prototype.onClickFood = function () {
         if (Main_1.default.instance.checkCorrect(this.id)) {
-            this.spfFood.node.active = false;
+            this.nCheck.active = true;
+            Main_1.default.instance.listChoose.push(this);
+            console.log("zxcx", this.nodeList);
+            if (Main_1.default.instance.countCorrect == 3) {
+            }
+            //console.log(this.node.position.x, this.node.position.y);
+            //console.log("Node list ",this.nodeList)
+            // if(Main.instance.countCorrect == 3) {
+            //     this.spfFood.node.active = false;
+            // }
+            // if(Main.instance.arrData.length == 3) {
+            //     // cc.tween(this.spfFood.node)
+            //     // .to(2,{position: cc.v3(100,100,0)})
+            //     // .start();
+            //     console.log("arr pos ", Main.instance.arrData)
+            // }
         }
         Main_1.default.instance.updateGame();
         // Main.instance.checkCorrect(this.id);

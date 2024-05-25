@@ -49,7 +49,7 @@ var Food = /** @class */ (function (_super) {
     };
     Food.prototype.onClickFood = function () {
         if (Main_1.default.instance.checkCorrect(this.id)) {
-            this.node.destroy();
+            this.spfFood.node.active = false;
         }
         Main_1.default.instance.updateGame();
         // Main.instance.checkCorrect(this.id);

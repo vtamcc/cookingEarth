@@ -68,8 +68,9 @@ var Main = /** @class */ (function (_super) {
         }
         // while(this.foodIndices.length < 24) {
         var randomIndex = Math.floor(Math.random() * this.listspfFood.length);
-        this.foodIndices.push(randomIndex);
-        console.log(this.foodIndices);
+        var element = this.listspfFood.splice(randomIndex, 1)[0];
+        this.foodIndices.push(element);
+        console.log('foodIndex ', this.foodIndices);
         //     console.log(randomIndex);
         //     this.foodIndices.push(randomIndex);
         // }
@@ -80,7 +81,6 @@ var Main = /** @class */ (function (_super) {
             var j = Math.floor(Math.random() * (i + 1));
             _a = [this.foodIndices[j], this.foodIndices[i]], this.foodIndices[i] = _a[0], this.foodIndices[j] = _a[1];
         }
-        console.log(this.foodIndices);
     };
     Main.prototype.renderFood = function () {
         console.log(this.foodIndices);
@@ -155,6 +155,8 @@ var Main = /** @class */ (function (_super) {
             this.countCorrect = 0;
             this.isMove = true;
             var indexItemFood = this.index;
+            if (this.indexData > 2)
+                this.indexData = 0;
             var dt = this.listCharMove[this.indexData].getComponent(CharMove_1.default);
             dt.food.spriteFrame = this.listspfFood[indexItemFood];
         }

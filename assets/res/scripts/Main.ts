@@ -41,11 +41,13 @@ export default class Main extends cc.Component {
         this.charFood();
     }
 
+    arrIdFood = [0,1,2,3,4,5,6,7]
+
     start () {
 
     }
     randomIndex() {
-        for(let i = 0; i < this.listspfFood.length; i++) {
+        for(let i = 0; i < this.arrIdFood.length; i++) {
             this.foodIndices.push(i);
             this.foodIndices.push(i);
             this.foodIndices.push(i);
@@ -54,7 +56,7 @@ export default class Main extends cc.Component {
         let randomIndex = Math.floor(Math.random() * this.listspfFood.length);
         this.foodIndices.push(randomIndex);
 
-        console.log(this.foodIndices);
+        console.log('foodIndex ',this.foodIndices);
 
         //     console.log(randomIndex);
         //     this.foodIndices.push(randomIndex);
@@ -66,8 +68,6 @@ export default class Main extends cc.Component {
             const j = Math.floor(Math.random() * (i + 1));
             [this.foodIndices[i], this.foodIndices[j]] = [this.foodIndices[j], this.foodIndices[i]];
         }
-
-        console.log(this.foodIndices);
     }
  
     renderFood() {
@@ -89,9 +89,13 @@ export default class Main extends cc.Component {
         }
     }
 
+
+
     randomFood() {
-        this.index = Math.floor(Math.random() * this.listspfFood.length)
-        console.log("id random ",this.index);
+        let index = Math.floor(Math.random() * this.listspfFood.length)
+        let element = this.listspfFood.splice(index, 1)[0];
+
+        console.log("id random ", element);
     }
     
    
@@ -163,6 +167,8 @@ export default class Main extends cc.Component {
             this.countCorrect = 0;
             this.isMove = true;
             let indexItemFood = this.index;
+            if(this.indexData > 2)
+                this.indexData = 0;
             let dt = this.listCharMove[this.indexData].getComponent(CharMove);
             dt.food.spriteFrame = this.listspfFood[indexItemFood];
 

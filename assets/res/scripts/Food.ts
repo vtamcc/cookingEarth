@@ -30,7 +30,7 @@ export default class Food extends cc.Component {
 
     onClickFood() {
         if (Main.instance.checkCorrect(this.id)) {
-            this.node.destroy();
+            this.spfFood.node.active = false;
         }
         
         Main.instance.updateGame()

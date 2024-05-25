@@ -31,14 +31,14 @@ export default class Main extends cc.Component {
     isMove = false;
     indexData = -1;
     countCorrect = 0;
+    numberPlayer = 0;
+    index;
     onLoad () {
         Main.instance = this;
-        this.randomFood();
         this.randomIndex();
         this.shuffle();
         this.renderFood();
         this.charFood();
-       
     }
 
     start () {
@@ -90,33 +90,83 @@ export default class Main extends cc.Component {
     }
 
     randomFood() {
-        let index = Math.floor(Math.random() * this.listspfFood.length)
-        this.arrData.push(index);
-        console.log(this.arrData);
+        this.index = Math.floor(Math.random() * this.listspfFood.length)
+        console.log("id random ",this.index);
     }
     
-    charFood() {
-        this.indexData++;
-        this.isMove = true;
-        let indexFood = this.arrData;
-        let dt = this.listCharMove[0].getComponent(CharMove);
-        dt.food.spriteFrame = this.listspfFood[indexFood[0]];
-    }
+   
     
     checkCorrect(idFood) {
-       
-        let test =  this.arrData.indexOf(idFood)
-        console.log(test);
-        if(test > -1 ) {
+        console.log(idFood);
+        // let test =  this.arrData.indexOf(idFood)
+        // console.log(test);
+        // if(test > -1 ) {
+        //     this.countCorrect++;
+        // }
+
+    
+        
+        if(this.index == idFood) {
             this.countCorrect++;
-            
+            console.log("count correct", this.countCorrect);
+            return true;
+        }else {
+            console.log("thua ccmr")
+            this.actionCharLost();
         }
 
-        if(this.countCorrect == 3) {
-            console.log("you win");
-        }
-        console.log(this.countCorrect);
+       
+
+        return false
+
+        // if(this.countCorrect == 3) {
+        //     console.log("you win");
+        //     // this.charFood();
+        // }
+
+        // console.log("count correct ", this.countCorrect);
         
+    }
+    
+
+    updateGame()
+    { 
+        if(this.countCorrect == 3) {
+            this.actionCharWin();
+            this.scheduleOnce(()=> {
+                this.charFood();
+            },1);
+           
+            console.log("index data",this.indexData);
+        }
+    }
+
+    actionCharWin() {
+        let dt = this.listCharMove[this.indexData].getComponent(CharMove)
+        dt.charAnimation.setAnimation(0, "happy", true);
+            this.scheduleOnce( () => {
+                dt.charAnimation.setAnimation(0,"happy_out",true);
+            },1)
+    }
+
+    actionCharLost() {
+        let dt = this.listCharMove[this.indexData].getComponent(CharMove)
+        dt.charAnimation.setAnimation(0,"discomfort",true);
+    }
+
+    charFood() {
+        if(this.indexData > 2)
+            return;
+        else {
+            this.randomFood();
+            this.indexData++;
+            this.countCorrect = 0;
+            this.isMove = true;
+            let indexItemFood = this.index;
+            let dt = this.listCharMove[this.indexData].getComponent(CharMove);
+            dt.food.spriteFrame = this.listspfFood[indexItemFood];
+
+        }
     }
     // update (dt) {}
 }

@@ -7,7 +7,7 @@
 
 import Main from "./Main";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class Food extends cc.Component {
@@ -15,21 +15,34 @@ export default class Food extends cc.Component {
     @property(cc.Sprite)
     spfFood: cc.Sprite = null;
 
-    @property(cc.Node) 
+    @property(cc.Node)
     nCheck: cc.Node = null;
 
     id: number = 0;
-    start () {
+    start() {
 
     }
 
-    setId (id:number) {
+    setId(id: number) {
         this.id = id;
         this.spfFood.spriteFrame = Main.instance.listspfFood[id];
     }
 
     onClickFood() {
-        Main.instance.checkCorrect(this.id);
+        if (Main.instance.checkCorrect(this.id)) {
+            this.node.destroy();
+        }
+        
+        Main.instance.updateGame()
+        // Main.instance.checkCorrect(this.id);
+        // if (Main.instance.countCorrect > 0 && Main.instance.index == this.id) {
+        //     this.node.destroy();
+        // }
+
+        // if(Main.instance.countCorrect > 3  && Main.instance.index == this.id) {
+        //     Main.instance.countCorrect = 0;
+        // }
+
     }
     // update (dt) {}
 }

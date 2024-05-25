@@ -48,7 +48,17 @@ var Food = /** @class */ (function (_super) {
         this.spfFood.spriteFrame = Main_1.default.instance.listspfFood[id];
     };
     Food.prototype.onClickFood = function () {
-        Main_1.default.instance.checkCorrect(this.id);
+        if (Main_1.default.instance.checkCorrect(this.id)) {
+            this.node.destroy();
+        }
+        Main_1.default.instance.updateGame();
+        // Main.instance.checkCorrect(this.id);
+        // if (Main.instance.countCorrect > 0 && Main.instance.index == this.id) {
+        //     this.node.destroy();
+        // }
+        // if(Main.instance.countCorrect > 3  && Main.instance.index == this.id) {
+        //     Main.instance.countCorrect = 0;
+        // }
     };
     __decorate([
         property(cc.Sprite)

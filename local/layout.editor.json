@@ -19,7 +19,7 @@
             "children": [
               {
                 "width": 455,
-                "height": 315.3125,
+                "height": 315,
                 "type": "panel",
                 "active": 0,
                 "children": [
@@ -28,7 +28,7 @@
               },
               {
                 "width": 455,
-                "height": 598.6875,
+                "height": 599,
                 "type": "panel",
                 "active": 0,
                 "children": [
@@ -44,7 +44,7 @@
             "children": [
               {
                 "width": 1004,
-                "height": 481.9375,
+                "height": 481.984375,
                 "type": "panel",
                 "active": 0,
                 "children": [
@@ -53,7 +53,7 @@
               },
               {
                 "width": 1004,
-                "height": 432.046875,
+                "height": 432,
                 "type": "panel",
                 "active": 0,
                 "children": [
@@ -86,8 +86,7 @@
         "inspector",
         "cocos-services"
       ]
-    },
-    " common-asset-worker-worker": {}
+    }
   },
   "panels": {},
   "panelLabelWidth": {}

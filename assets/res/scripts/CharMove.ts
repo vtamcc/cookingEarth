@@ -43,6 +43,7 @@ export default class CharMove extends cc.Component {
                 }
             }
         }
+
         this.node.x += 5;
     }
 }

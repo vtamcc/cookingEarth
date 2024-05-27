@@ -24,25 +24,38 @@ export default class Main extends cc.Component {
     @property(cc.Node)
     nodeListFood: cc.Node = null;
 
+    @property(cc.Node)
+    nodeHand: cc.Node = null;
     // LIFE-CYCLE CALLBACKS:
     foodIndices = [];
     arrData = [];
     isMove = false;
     indexData = -1;
+    idFood = -1;
     countCorrect = 0;
     numberPlayer = 0;
     index;
 
+    scaleDuration = 0.4;
+    minScale = 0.5;
+    maxScale = 0.7;
+    private resizeAction: cc.Action = null;
+    listPos: Array<Food> = [];
     listChoose: Array<Food> = [];
     onLoad () {
         Main.instance = this;
         
-      
+        
         this.randomIndex();
         this.shuffle();
         this.renderFood();
         this.randomFood();
         this.charFood();
+        this.scaleHand();
+        this.setIdPos();
+        console.log(this.listPos);
+        
+        // this.setPos();
         console.log(this.arrIdFood);
     }
 
@@ -51,6 +64,15 @@ export default class Main extends cc.Component {
     start () {
 
     }
+
+    scaleHand() {
+        let scaleUp = cc.scaleTo(this.scaleDuration,this.minScale);
+        let scaleDown = cc.scaleTo(this.scaleDuration,this.maxScale);
+        this.resizeAction = cc.repeatForever(cc.sequence(scaleUp, scaleDown));
+        this.nodeHand.runAction(this.resizeAction);
+        this.nodeHand.zIndex = 99;
+    }
+  
     randomIndex() {
         for(let i = 0; i < this.arrIdFood.length; i++) {
             this.foodIndices.push(i);
@@ -90,7 +112,6 @@ export default class Main extends cc.Component {
     
             item.node.x = col * cellSizeX;
             item.node.y = -row * cellSizeY; 
-           
         }
     }
 
@@ -115,10 +136,10 @@ export default class Main extends cc.Component {
 
         
         
-        if(this.arrIdFood[this.indexData] == idFood) {
+        if(this.arrIdFood[this.idFood] == idFood) {
             this.countCorrect++;
-            this.arrData.push(idFood);
-            
+        
+
             console.log("count correct", this.countCorrect);
             return true;
         }else {
@@ -139,19 +160,44 @@ export default class Main extends cc.Component {
         // console.log("count correct ", this.countCorrect);
         
     }
-    
+   
     destroyFood() {
-        console.log("node list", this.arrData);
+        let dt = this.listCharMove[this.idFood].getComponent(CharMove)
+        console.log(this.listChoose);
         this.arrData = []
         this.listChoose.forEach(e => {
             if(e){
-                e.node.removeFromParent();
+                cc.tween(e.node)
+                    .to(0.5,{position: cc.v3(dt.nOrder.position.x+260,300,0)})
+                    .start();
+                this.scheduleOnce(() => {
+                    e.node.destroy();
+                },0.5)
+             
+                
             }
         })
     this.listChoose = [];
 
     }
+    
+    setIdPos() {
+        let test = this.arrIdFood[0];
+        for(let i = 0; i < this.foodIndices.length; i++) {
+            if(test == this.foodIndices[i]) {
+                return true;
+            }
+        }
+    }
 
+    // setPos() {
+    //    this.listPos.forEach(e => {
+    //         if(e) {
+    //             let pos = e.node.position;
+    //             console.log(pos);
+    //         }
+    //    })
+    // }
     updateGame()
     {   
         
@@ -195,12 +241,13 @@ export default class Main extends cc.Component {
 
         // }
         this.indexData++;
+        this.idFood++;
         // this.randomFood();
         console.log("index data = ",this.indexData);
 
         this.countCorrect = 0;
         this.isMove = true;
-        let indexItemFood = this.arrIdFood[this.indexData];
+        let indexItemFood = this.arrIdFood[this.idFood];
         console.log("id food ", indexItemFood);
             if(this.indexData > 2)
                 this.indexData = 0;

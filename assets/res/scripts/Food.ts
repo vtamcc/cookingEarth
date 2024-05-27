@@ -28,11 +28,17 @@ export default class Food extends cc.Component {
         this.spfFood.spriteFrame = Main.instance.listspfFood[id];
     }
 
+    posFood() {
+        if(Main.instance.setIdPos()) {
+            Main.instance.listPos.push(this);
+        }
+        
+    }
+    
     onClickFood() {
         if (Main.instance.checkCorrect(this.id)) {
             this.nCheck.active = true;
             Main.instance.listChoose.push(this);
-            console.log("zxcx", this.nodeList);
             if(Main.instance.countCorrect == 3) {
                
             }

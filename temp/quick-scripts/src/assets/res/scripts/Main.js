@@ -40,13 +40,20 @@ var Main = /** @class */ (function (_super) {
         _this.pfFood = null;
         _this.listCharMove = [];
         _this.nodeListFood = null;
+        _this.nodeHand = null;
         // LIFE-CYCLE CALLBACKS:
         _this.foodIndices = [];
         _this.arrData = [];
         _this.isMove = false;
         _this.indexData = -1;
+        _this.idFood = -1;
         _this.countCorrect = 0;
         _this.numberPlayer = 0;
+        _this.scaleDuration = 0.4;
+        _this.minScale = 0.5;
+        _this.maxScale = 0.7;
+        _this.resizeAction = null;
+        _this.listPos = [];
         _this.listChoose = [];
         _this.arrIdFood = [0, 1, 2, 3, 4, 5, 6, 7];
         return _this;
@@ -60,9 +67,20 @@ var Main = /** @class */ (function (_super) {
         this.renderFood();
         this.randomFood();
         this.charFood();
+        this.scaleHand();
+        this.setIdPos();
+        console.log(this.listPos);
+        // this.setPos();
         console.log(this.arrIdFood);
     };
     Main.prototype.start = function () {
+    };
+    Main.prototype.scaleHand = function () {
+        var scaleUp = cc.scaleTo(this.scaleDuration, this.minScale);
+        var scaleDown = cc.scaleTo(this.scaleDuration, this.maxScale);
+        this.resizeAction = cc.repeatForever(cc.sequence(scaleUp, scaleDown));
+        this.nodeHand.runAction(this.resizeAction);
+        this.nodeHand.zIndex = 99;
     };
     Main.prototype.randomIndex = function () {
         for (var i = 0; i < this.arrIdFood.length; i++) {
@@ -115,9 +133,8 @@ var Main = /** @class */ (function (_super) {
         // if(test > -1 ) {
         //     this.countCorrect++;
         // }
-        if (this.arrIdFood[this.indexData] == idFood) {
+        if (this.arrIdFood[this.idFood] == idFood) {
             this.countCorrect++;
-            this.arrData.push(idFood);
             console.log("count correct", this.countCorrect);
             return true;
         }
@@ -133,15 +150,38 @@ var Main = /** @class */ (function (_super) {
         // console.log("count correct ", this.countCorrect);
     };
     Main.prototype.destroyFood = function () {
-        console.log("node list", this.arrData);
+        var _this = this;
+        var dt = this.listCharMove[this.idFood].getComponent(CharMove_1.default);
+        console.log(this.listChoose);
         this.arrData = [];
         this.listChoose.forEach(function (e) {
             if (e) {
-                e.node.removeFromParent();
+                cc.tween(e.node)
+                    .to(0.5, { position: cc.v3(dt.nOrder.position.x + 260, 300, 0) })
+                    .start();
+                _this.scheduleOnce(function () {
+                    e.node.destroy();
+                }, 0.5);
             }
         });
         this.listChoose = [];
     };
+    Main.prototype.setIdPos = function () {
+        var test = this.arrIdFood[0];
+        for (var i = 0; i < this.foodIndices.length; i++) {
+            if (test == this.foodIndices[i]) {
+                return true;
+            }
+        }
+    };
+    // setPos() {
+    //    this.listPos.forEach(e => {
+    //         if(e) {
+    //             let pos = e.node.position;
+    //             console.log(pos);
+    //         }
+    //    })
+    // }
     Main.prototype.updateGame = function () {
         var _this = this;
         if (this.countCorrect == 3) {
@@ -178,11 +218,12 @@ var Main = /** @class */ (function (_super) {
         //     dt.food.spriteFrame = this.listspfFood[indexItemFood];
         // }
         this.indexData++;
+        this.idFood++;
         // this.randomFood();
         console.log("index data = ", this.indexData);
         this.countCorrect = 0;
         this.isMove = true;
-        var indexItemFood = this.arrIdFood[this.indexData];
+        var indexItemFood = this.arrIdFood[this.idFood];
         console.log("id food ", indexItemFood);
         if (this.indexData > 2)
             this.indexData = 0;
@@ -203,6 +244,9 @@ var Main = /** @class */ (function (_super) {
     __decorate([
         property(cc.Node)
     ], Main.prototype, "nodeListFood", void 0);
+    __decorate([
+        property(cc.Node)
+    ], Main.prototype, "nodeHand", void 0);
     Main = Main_1 = __decorate([
         ccclass
     ], Main);

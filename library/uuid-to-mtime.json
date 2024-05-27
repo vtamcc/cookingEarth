@@ -75,8 +75,8 @@
     "relativePath": "res/img/bg18-compressed.jpg"
   },
   "897e4738-c484-4a4f-97ed-092bf1a9d3a4": {
-    "asset": 1716633253651,
-    "meta": 1716633253653,
+    "asset": 1716781435152,
+    "meta": 1716781435154,
     "relativePath": "Main.fire"
   },
   "a06304bd-7c63-47dd-94f1-963c59d30758": {
@@ -343,16 +343,6 @@
     "asset": 1716622989718,
     "meta": 1716622992411,
     "relativePath": "res/scripts/CharMove.ts"
-  },
-  "8b828df5-8dc2-483e-a0ad-8056707154a6": {
-    "asset": 1716632969295,
-    "meta": 1716633172133,
-    "relativePath": "res/scripts/Food.ts"
-  },
-  "dcfa7dcb-aa3c-4846-b4b7-8e22099a65a8": {
-    "asset": 1716633165720,
-    "meta": 1716633172159,
-    "relativePath": "res/scripts/Main.ts"
   },
   "9836134e-b892-4283-b6b2-78b5acf3ed45": {
     "asset": 1672816131000,
@@ -853,5 +843,15 @@
     "asset": 1672816131000,
     "meta": 1716633267947,
     "relativePath": "model/primitives.fbx"
+  },
+  "8b828df5-8dc2-483e-a0ad-8056707154a6": {
+    "asset": 1716781401237,
+    "meta": 1716781405034,
+    "relativePath": "res/scripts/Food.ts"
+  },
+  "dcfa7dcb-aa3c-4846-b4b7-8e22099a65a8": {
+    "asset": 1716781433801,
+    "meta": 1716781434875,
+    "relativePath": "res/scripts/Main.ts"
   }
 }

@@ -48,11 +48,15 @@ var Food = /** @class */ (function (_super) {
         this.id = id;
         this.spfFood.spriteFrame = Main_1.default.instance.listspfFood[id];
     };
+    Food.prototype.posFood = function () {
+        if (Main_1.default.instance.setIdPos()) {
+            Main_1.default.instance.listPos.push(this);
+        }
+    };
     Food.prototype.onClickFood = function () {
         if (Main_1.default.instance.checkCorrect(this.id)) {
             this.nCheck.active = true;
             Main_1.default.instance.listChoose.push(this);
-            console.log("zxcx", this.nodeList);
             if (Main_1.default.instance.countCorrect == 3) {
             }
             //console.log(this.node.position.x, this.node.position.y);

@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "NPC_3 copy",
+    "texture": "4b8e2e3a-c12f-4073-b41a-ae4fe7b6df33",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      300,
+      431
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      300,
+      431
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

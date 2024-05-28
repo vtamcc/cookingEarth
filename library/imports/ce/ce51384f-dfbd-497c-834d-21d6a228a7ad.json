@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "Next Level",
+    "texture": "7db5d829-f157-4414-90f8-bbeeb742c677",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      229,
+      41
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      229,
+      41
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

@@ -48,15 +48,24 @@ var Food = /** @class */ (function (_super) {
         this.id = id;
         this.spfFood.spriteFrame = Main_1.default.instance.listspfFood[id];
     };
-    Food.prototype.posFood = function () {
-        if (Main_1.default.instance.setIdPos()) {
-            Main_1.default.instance.listPos.push(this);
-        }
-    };
+    // posFood() {
+    //     let food_1 = Main.instance.arrIdFood[0]
+    //     for(let i = 0; i < Main.instance.foodIndices.length; i++) {
+    //         if(Main.instance.foodIndices[i] == food_1) {
+    //             this.nodeList.push(this.node);
+    //         }
+    //     }
+    // }
+    // handPos() {
+    //    for(let i = 0; i < this.nodeList.length; i++) {
+    //         let pos = this.nodeList[i].position;
+    //         Main.instance.nodeHand.setPosition(pos);
+    //    }
+    // }
     Food.prototype.onClickFood = function () {
+        Main_1.default.instance.listChoose.push(this);
         if (Main_1.default.instance.checkCorrect(this.id)) {
             this.nCheck.active = true;
-            Main_1.default.instance.listChoose.push(this);
             if (Main_1.default.instance.countCorrect == 3) {
             }
             //console.log(this.node.position.x, this.node.position.y);
@@ -72,6 +81,10 @@ var Food = /** @class */ (function (_super) {
             // }
         }
         Main_1.default.instance.updateGame();
+        // this.posFood()
+        // this.handPos();
+        // this.posFood()
+        // console.log("list pos ", Main.instance.listPos);
         // Main.instance.checkCorrect(this.id);
         // if (Main.instance.countCorrect > 0 && Main.instance.index == this.id) {
         //     this.node.destroy();
@@ -80,6 +93,9 @@ var Food = /** @class */ (function (_super) {
         //     Main.instance.countCorrect = 0;
         // }
     };
+    Food.prototype.onLoad = function () {
+    };
+    Food.instance = null;
     __decorate([
         property(cc.Sprite)
     ], Food.prototype, "spfFood", void 0);

@@ -11,7 +11,7 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class Food extends cc.Component {
-
+    public static instance: Food = null;
     @property(cc.Sprite)
     spfFood: cc.Sprite = null;
 
@@ -28,17 +28,29 @@ export default class Food extends cc.Component {
         this.spfFood.spriteFrame = Main.instance.listspfFood[id];
     }
 
-    posFood() {
-        if(Main.instance.setIdPos()) {
-            Main.instance.listPos.push(this);
-        }
+    // posFood() {
+    //     let food_1 = Main.instance.arrIdFood[0]
+    //     for(let i = 0; i < Main.instance.foodIndices.length; i++) {
+    //         if(Main.instance.foodIndices[i] == food_1) {
+    //             this.nodeList.push(this.node);
+    //         }
+    //     }
         
-    }
+    // }
+
+    // handPos() {
+    //    for(let i = 0; i < this.nodeList.length; i++) {
+    //         let pos = this.nodeList[i].position;
+    //         Main.instance.nodeHand.setPosition(pos);
+    //    }
+    // }
     
     onClickFood() {
+      
+        Main.instance.listChoose.push(this);
         if (Main.instance.checkCorrect(this.id)) {
             this.nCheck.active = true;
-            Main.instance.listChoose.push(this);
+            
             if(Main.instance.countCorrect == 3) {
                
             }
@@ -57,7 +69,12 @@ export default class Food extends cc.Component {
             
            
         }
+       
         Main.instance.updateGame();
+        // this.posFood()
+        // this.handPos();
+        // this.posFood()
+        // console.log("list pos ", Main.instance.listPos);
         // Main.instance.checkCorrect(this.id);
         // if (Main.instance.countCorrect > 0 && Main.instance.index == this.id) {
         //     this.node.destroy();
@@ -68,7 +85,9 @@ export default class Food extends cc.Component {
         // }
 
     }
-
+    
+    onLoad() {
+    }
     
     // update (dt) {}
 }

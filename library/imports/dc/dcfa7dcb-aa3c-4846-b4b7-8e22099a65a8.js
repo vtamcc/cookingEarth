@@ -41,19 +41,22 @@ var Main = /** @class */ (function (_super) {
         _this.listCharMove = [];
         _this.nodeListFood = null;
         _this.nodeHand = null;
+        _this.prfLose = null;
+        _this.prfWin = null;
         // LIFE-CYCLE CALLBACKS:
         _this.foodIndices = [];
-        _this.arrData = [];
+        _this.arrPos = [];
         _this.isMove = false;
         _this.indexData = -1;
         _this.idFood = -1;
         _this.countCorrect = 0;
+        _this.countFalse = 0;
         _this.numberPlayer = 0;
+        _this.indexPos = -1;
         _this.scaleDuration = 0.4;
         _this.minScale = 0.5;
         _this.maxScale = 0.7;
         _this.resizeAction = null;
-        _this.listPos = [];
         _this.listChoose = [];
         _this.arrIdFood = [0, 1, 2, 3, 4, 5, 6, 7];
         return _this;
@@ -64,13 +67,12 @@ var Main = /** @class */ (function (_super) {
         Main_1.instance = this;
         this.randomIndex();
         this.shuffle();
-        this.renderFood();
         this.randomFood();
+        this.renderFood();
         this.charFood();
-        this.scaleHand();
-        this.setIdPos();
-        console.log(this.listPos);
+        // console.log(this.listPos);
         // this.setPos();
+        //this.getPos();
         console.log(this.arrIdFood);
     };
     Main.prototype.start = function () {
@@ -103,20 +105,44 @@ var Main = /** @class */ (function (_super) {
             _a = [this.foodIndices[j], this.foodIndices[i]], this.foodIndices[i] = _a[0], this.foodIndices[j] = _a[1];
         }
     };
+    Main.prototype.effectLose = function () {
+        var lose = cc.instantiate(this.prfLose);
+        this.node.addChild(lose);
+    };
+    Main.prototype.effectWin = function () {
+        var win = cc.instantiate(this.prfWin);
+        this.node.addChild(win);
+    };
     Main.prototype.renderFood = function () {
+        var _this = this;
         console.log(this.foodIndices);
         var cols = 5;
         var rows = 5;
-        var cellSizeX = 150;
-        var cellSizeY = 130;
-        for (var i = 0; i < this.foodIndices.length; i++) {
-            var item = cc.instantiate(this.pfFood).getComponent(Food_1.default);
-            item.setId(this.foodIndices[i]);
-            this.nodeListFood.addChild(item.node);
+        var cellSizeX = 145;
+        var cellSizeY = 133;
+        var food_1 = this.arrIdFood[0];
+        var _loop_1 = function (i) {
+            var item = cc.instantiate(this_1.pfFood).getComponent(Food_1.default);
+            item.setId(this_1.foodIndices[i]);
+            this_1.nodeListFood.addChild(item.node);
             var col = i % cols;
             var row = Math.floor(i / cols);
             item.node.x = col * cellSizeX;
             item.node.y = -row * cellSizeY;
+            if (food_1 == this_1.foodIndices[i]) {
+                var pos_1 = item.node.position;
+                this_1.scheduleOnce(function () {
+                    _this.nodeHand.active = true;
+                    _this.nodeHand.setPosition(pos_1);
+                    _this.scaleHand();
+                }, 2);
+                this_1.arrPos.push(item.node);
+                console.log(item.node.position);
+            }
+        };
+        var this_1 = this;
+        for (var i = 0; i < this.foodIndices.length; i++) {
+            _loop_1(i);
         }
     };
     Main.prototype.randomFood = function () {
@@ -126,21 +152,37 @@ var Main = /** @class */ (function (_super) {
             _a = [this.arrIdFood[j], this.arrIdFood[i]], this.arrIdFood[i] = _a[0], this.arrIdFood[j] = _a[1];
         }
     };
+    Main.prototype.setPosHand = function () {
+        if (this.arrIdFood[0]) {
+            this.indexPos++;
+            var posHand = this.arrPos[this.indexPos].position;
+            this.nodeHand.setPosition(posHand);
+            console.log("xzczxc", this.arrIdFood[0]);
+        }
+    };
     Main.prototype.checkCorrect = function (idFood) {
+        var _this = this;
         console.log(idFood);
         // let test =  this.arrData.indexOf(idFood)
         // console.log(test);
         // if(test > -1 ) {
         //     this.countCorrect++;
-        // }
+        if (this.indexData == 0) {
+            this.setPosHand();
+        }
+        else {
+            console.log("tiep tuc");
+        }
         if (this.arrIdFood[this.idFood] == idFood) {
             this.countCorrect++;
-            console.log("count correct", this.countCorrect);
             return true;
         }
         else {
             console.log("thua ccmr");
             this.actionCharLost();
+            this.scheduleOnce(function () {
+                _this.effectLose();
+            }, 0.8);
         }
         return false;
         // if(this.countCorrect == 3) {
@@ -153,7 +195,6 @@ var Main = /** @class */ (function (_super) {
         var _this = this;
         var dt = this.listCharMove[this.idFood].getComponent(CharMove_1.default);
         console.log(this.listChoose);
-        this.arrData = [];
         this.listChoose.forEach(function (e) {
             if (e) {
                 cc.tween(e.node)
@@ -166,14 +207,14 @@ var Main = /** @class */ (function (_super) {
         });
         this.listChoose = [];
     };
-    Main.prototype.setIdPos = function () {
-        var test = this.arrIdFood[0];
-        for (var i = 0; i < this.foodIndices.length; i++) {
-            if (test == this.foodIndices[i]) {
-                return true;
-            }
-        }
-    };
+    // setIdPos() {
+    //     let test = this.arrIdFood[0];
+    //     for(let i = 0; i < this.foodIndices.length; i++) {
+    //         if(test == this.foodIndices[i]) {
+    //             return true;
+    //         }
+    //     }
+    // }
     // setPos() {
     //    this.listPos.forEach(e => {
     //         if(e) {
@@ -185,23 +226,37 @@ var Main = /** @class */ (function (_super) {
     Main.prototype.updateGame = function () {
         var _this = this;
         if (this.countCorrect == 3) {
+            this.numberPlayer++;
+            console.log("numberPlayer ", this.numberPlayer);
             this.actionCharWin();
             this.scheduleOnce(function () {
                 _this.charFood();
             }, 1);
+            this.nodeHand.destroy();
             this.destroyFood();
+        }
+        if (this.numberPlayer == 3) {
+            console.log("winn");
+            this.effectWin();
         }
     };
     Main.prototype.actionCharWin = function () {
         var dt = this.listCharMove[this.indexData].getComponent(CharMove_1.default);
+        dt.food.node.active = false;
         dt.charAnimation.setAnimation(0, "happy", true);
         this.scheduleOnce(function () {
             dt.charAnimation.setAnimation(0, "happy_out", true);
         }, 1);
+        dt.nWin.active = true;
+        this.scheduleOnce(function () {
+            dt.nOrder.active = false;
+        }, 2);
     };
     Main.prototype.actionCharLost = function () {
         var dt = this.listCharMove[this.indexData].getComponent(CharMove_1.default);
         dt.charAnimation.setAnimation(0, "discomfort", true);
+        dt.food.node.active = false;
+        dt.nLose.active = true;
     };
     Main.prototype.charFood = function () {
         // if(this.indexData > 2)
@@ -247,6 +302,12 @@ var Main = /** @class */ (function (_super) {
     __decorate([
         property(cc.Node)
     ], Main.prototype, "nodeHand", void 0);
+    __decorate([
+        property(cc.Prefab)
+    ], Main.prototype, "prfLose", void 0);
+    __decorate([
+        property(cc.Prefab)
+    ], Main.prototype, "prfWin", void 0);
     Main = Main_1 = __decorate([
         ccclass
     ], Main);

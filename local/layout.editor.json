@@ -86,8 +86,17 @@
         "inspector",
         "cocos-services"
       ]
+    },
+    " common-asset-worker-worker": {},
+    "window-1716883311720": {}
+  },
+  "panels": {
+    "package-asset.import": {
+      "x": 760,
+      "y": 228,
+      "width": 404,
+      "height": 574
     }
   },
-  "panels": {},
   "panelLabelWidth": {}
 }

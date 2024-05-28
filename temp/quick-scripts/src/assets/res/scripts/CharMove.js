@@ -39,9 +39,11 @@ var CharMove = /** @class */ (function (_super) {
         _this.idChar = 0;
         _this.charAnimation = null;
         _this.nOrder = null;
+        // LIFE-CYCLE CALLBACKS:
+        _this.nWin = null;
+        _this.nLose = null;
         return _this;
     }
-    // LIFE-CYCLE CALLBACKS:
     // onLoad () {}
     CharMove.prototype.start = function () {
     };
@@ -57,6 +59,8 @@ var CharMove = /** @class */ (function (_super) {
                     Main_1.default.instance.isMove = false;
                     this.charAnimation.setAnimation(0, "idle", true);
                     this.nOrder.active = true;
+                    this.nWin.active = false;
+                    this.nLose.active = false;
                 }
             }
         }
@@ -77,6 +81,12 @@ var CharMove = /** @class */ (function (_super) {
     __decorate([
         property(cc.Node)
     ], CharMove.prototype, "nOrder", void 0);
+    __decorate([
+        property(cc.Node)
+    ], CharMove.prototype, "nWin", void 0);
+    __decorate([
+        property(cc.Node)
+    ], CharMove.prototype, "nLose", void 0);
     CharMove = __decorate([
         ccclass
     ], CharMove);

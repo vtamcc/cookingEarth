@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "YOU FAILED",
+    "texture": "7b163126-c0bd-46ea-a062-6a7347864606",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      733,
+      98
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      733,
+      98
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

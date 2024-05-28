@@ -24,7 +24,10 @@ export default class CharMove extends cc.Component {
     @property(cc.Node)
     nOrder: cc.Node = null;
     // LIFE-CYCLE CALLBACKS:
-
+    @property(cc.Node)
+    nWin: cc.Node = null;
+    @property(cc.Node)
+    nLose: cc.Node = null;
     // onLoad () {}
 
     start () {
@@ -43,6 +46,9 @@ export default class CharMove extends cc.Component {
                     Main.instance.isMove = false;
                     this.charAnimation.setAnimation(0,"idle",true);
                     this.nOrder.active = true;
+                    this.nWin.active = false;
+                    this.nLose.active = false;
+
                 }
             }
         }

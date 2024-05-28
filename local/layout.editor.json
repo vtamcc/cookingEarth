@@ -88,7 +88,8 @@
       ]
     },
     " common-asset-worker-worker": {},
-    "window-1716883311720": {}
+    "window-1716887320084": {},
+    " build-worker-worker": {}
   },
   "panels": {
     "package-asset.import": {
@@ -96,6 +97,12 @@
       "y": 228,
       "width": 404,
       "height": 574
+    },
+    "builder": {
+      "x": 710,
+      "y": 138,
+      "width": 500,
+      "height": 728
     }
   },
   "panelLabelWidth": {}

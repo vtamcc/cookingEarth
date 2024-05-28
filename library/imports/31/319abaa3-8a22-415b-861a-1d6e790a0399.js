@@ -63,6 +63,12 @@ var CharMove = /** @class */ (function (_super) {
                     this.nLose.active = false;
                 }
             }
+            if (Main_1.default.instance.numberPlayer == 3) {
+                this.scheduleOnce(function () {
+                    Main_1.default.instance.isMove = false;
+                    return;
+                }, 3);
+            }
         }
         this.node.x += 5;
     };

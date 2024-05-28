@@ -119,7 +119,7 @@ var Main = /** @class */ (function (_super) {
         var cols = 5;
         var rows = 5;
         var cellSizeX = 145;
-        var cellSizeY = 133;
+        var cellSizeY = 135;
         var food_1 = this.arrIdFood[0];
         var _loop_1 = function (i) {
             var item = cc.instantiate(this_1.pfFood).getComponent(Food_1.default);
@@ -237,7 +237,9 @@ var Main = /** @class */ (function (_super) {
         }
         if (this.numberPlayer == 3) {
             console.log("winn");
-            this.effectWin();
+            this.scheduleOnce(function () {
+                _this.effectWin();
+            }, 0.8);
         }
     };
     Main.prototype.actionCharWin = function () {
@@ -250,7 +252,7 @@ var Main = /** @class */ (function (_super) {
         dt.nWin.active = true;
         this.scheduleOnce(function () {
             dt.nOrder.active = false;
-        }, 2);
+        }, 1);
     };
     Main.prototype.actionCharLost = function () {
         var dt = this.listCharMove[this.indexData].getComponent(CharMove_1.default);

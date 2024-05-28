@@ -115,7 +115,7 @@ export default class Main extends cc.Component {
         const cols = 5;
         const rows = 5;
         const cellSizeX= 145;
-        const cellSizeY= 133;
+        const cellSizeY= 135;
         let food_1 = this.arrIdFood[0];
         for(let i = 0; i < this.foodIndices.length; i++) {
             let item = cc.instantiate(this.pfFood).getComponent(Food)
@@ -249,7 +249,10 @@ export default class Main extends cc.Component {
 
         if(this.numberPlayer == 3) {
             console.log("winn");
-            this.effectWin();
+            this.scheduleOnce(() => {
+                this.effectWin();
+            },0.8)
+            
         }
     }
 
@@ -266,7 +269,7 @@ export default class Main extends cc.Component {
         dt.nWin.active = true;
         this.scheduleOnce(() => {
             dt.nOrder.active = false;
-        },2) 
+        },1) 
        
     }
 

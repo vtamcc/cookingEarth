@@ -15,10 +15,12 @@ export default class Food extends cc.Component {
     @property(cc.Sprite)
     spfFood: cc.Sprite = null;
 
-    @property(cc.Node)
-    nCheck: cc.Node = null;
+    @property(cc.ProgressBar)
+    progressBar: cc.ProgressBar = null;
     id: number = 0;
     nodeList = [];
+    duration: number = 0.15;
+    timeElapsed: number = 0;
     start() {
 
     }
@@ -45,12 +47,20 @@ export default class Food extends cc.Component {
     //    }
     // }
     
+    updateProgress(dt: number) {
+        if (this.timeElapsed < this.duration) {
+            this.timeElapsed += dt;
+            this.progressBar.progress = this.timeElapsed / this.duration;
+        } else {
+            this.progressBar.progress = 1;
+            this.unschedule(this.updateProgress);
+        }
+    }
     onClickFood() {
       
         Main.instance.listChoose.push(this);
         if (Main.instance.checkCorrect(this.id)) {
-            this.nCheck.active = true;
-            
+            this.schedule(this.updateProgress,0);
             if(Main.instance.countCorrect == 3) {
                
             }

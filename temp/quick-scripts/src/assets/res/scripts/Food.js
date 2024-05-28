@@ -36,9 +36,11 @@ var Food = /** @class */ (function (_super) {
     function Food() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.spfFood = null;
-        _this.nCheck = null;
+        _this.progressBar = null;
         _this.id = 0;
         _this.nodeList = [];
+        _this.duration = 0.15;
+        _this.timeElapsed = 0;
         return _this;
         // update (dt) {}
     }
@@ -62,10 +64,20 @@ var Food = /** @class */ (function (_super) {
     //         Main.instance.nodeHand.setPosition(pos);
     //    }
     // }
+    Food.prototype.updateProgress = function (dt) {
+        if (this.timeElapsed < this.duration) {
+            this.timeElapsed += dt;
+            this.progressBar.progress = this.timeElapsed / this.duration;
+        }
+        else {
+            this.progressBar.progress = 1;
+            this.unschedule(this.updateProgress);
+        }
+    };
     Food.prototype.onClickFood = function () {
         Main_1.default.instance.listChoose.push(this);
         if (Main_1.default.instance.checkCorrect(this.id)) {
-            this.nCheck.active = true;
+            this.schedule(this.updateProgress, 0);
             if (Main_1.default.instance.countCorrect == 3) {
             }
             //console.log(this.node.position.x, this.node.position.y);
@@ -100,8 +112,8 @@ var Food = /** @class */ (function (_super) {
         property(cc.Sprite)
     ], Food.prototype, "spfFood", void 0);
     __decorate([
-        property(cc.Node)
-    ], Food.prototype, "nCheck", void 0);
+        property(cc.ProgressBar)
+    ], Food.prototype, "progressBar", void 0);
     Food = __decorate([
         ccclass
     ], Food);

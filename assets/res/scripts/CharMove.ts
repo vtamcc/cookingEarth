@@ -50,6 +50,16 @@ export default class CharMove extends cc.Component {
                     this.nLose.active = false;
 
                 }
+
+                
+            }
+
+            if(Main.instance.numberPlayer == 3) {
+                this.scheduleOnce(() => {
+                    Main.instance.isMove = false;
+                    return;
+                },3)
+              
             }
         }
 

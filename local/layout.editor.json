@@ -87,9 +87,7 @@
         "cocos-services"
       ]
     },
-    " common-asset-worker-worker": {},
-    "window-1716887320084": {},
-    " build-worker-worker": {}
+    " common-asset-worker-worker": {}
   },
   "panels": {
     "package-asset.import": {
